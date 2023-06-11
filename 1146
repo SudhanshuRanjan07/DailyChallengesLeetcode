@@ -1,0 +1,25 @@
+1146. Snapshot Array
+
+...............
+
+class SnapshotArray {
+public:
+    unordered_map<int, map<int,int>> m;
+    int currSnap = 0;
+    
+    SnapshotArray(int length) {
+    }
+    
+    void set(int index, int val) {
+        m[index][currSnap] = val;
+    }
+    
+    int snap() {
+        return currSnap++;
+    }
+    
+    int get(int index, int snap_id) {
+        auto it = m[index].upper_bound(snap_id);
+        return it == begin(m[index]) ? 0 : prev(it)->second;
+    }
+};
